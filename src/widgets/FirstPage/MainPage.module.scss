@@ -1,0 +1,47 @@
+.contentBlock {
+  width: 100%;
+  height: auto;
+  display: flex;
+  margin-top: 50vh;
+  justify-content: center;
+
+}
+
+.navBar {
+  align-items: center;
+  display: flex;
+  gap: 30px;
+
+  @media screen and (max-width: 480px) {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.link {
+  padding: 30px 40px;
+  width: 500px;
+  text-align: center;
+  align-self: start;
+  border: 1px solid var(--blue);
+  background: var(--white);
+  color: var(--blue);
+  font-size: 40px;
+  transition: 0.3s;
+
+  &:hover {
+    border: 1px solid var(--white);
+    background: var(--blue);
+    color: var(--white);
+  }
+
+
+  @media screen and (max-width: 980px) {
+    padding: 15px 25px;
+    width: 350px;
+    font-size: 26px;
+  }
+
+
+}
