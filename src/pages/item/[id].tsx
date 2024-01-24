@@ -1,10 +1,9 @@
 import { useRouter } from 'next/router';
-import React , { useEffect , useMemo , useState } from "react";
+import React , { useMemo , useState } from "react";
 import axios , { AxiosHeaders } from "axios";
 import styles from "@/app/styles/PopUpMenu.module.scss";
 import Link from "next/link";
 import { PopUpMenu } from "@/pages/PopUpMenu";
-import { set } from "immutable";
 
 interface axiosRes {
     data: any;
