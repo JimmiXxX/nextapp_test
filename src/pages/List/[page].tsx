@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { PopUpMenu } from "@/pages/PopUpMenu";
+import { PopUpMenu } from "@/PopUpMenu";
 import styles from "@/app/styles/PopUpMenu.module.scss";
 import Link from "next/link";
 import React from "react";

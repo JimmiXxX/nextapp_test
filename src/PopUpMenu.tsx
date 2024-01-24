@@ -1,4 +1,4 @@
-import styles from "../app/styles/PopUpMenu.module.scss"
+import styles from "./app/styles/PopUpMenu.module.scss"
 import React , { useMemo , useState } from "react";
 import axios from "axios";
 import Link from "next/link";
