@@ -1,32 +1,49 @@
 import { useRouter } from 'next/router';
-import React , { useEffect , useState } from "react";
-import axios from "axios";
-import styles from "@/widgets/PopUpMenu/PopUpMenu.module.scss";
+import React , { useEffect , useMemo , useState } from "react";
+import axios , { AxiosHeaders } from "axios";
+import styles from "@/app/styles/PopUpMenu.module.scss";
 import Link from "next/link";
-import { PopUpMenu } from "@/widgets/PopUpMenu/PopUpMenu";
+import { PopUpMenu } from "@/pages/PopUpMenu";
+import { set } from "immutable";
+
+interface axiosRes {
+    data: any;
+    status: number;
+    statusText: string;
+    headers: AxiosHeaders;
+    config: string;
+    request?: XMLHttpRequest;
+}
+
+interface Item {
+    name: string,
+    text: string
+}
 
 const ItemPage = () => {
     const router = useRouter ()
     const { id } = router.query
 
-    const [item , setItem] = useState<null> (null)
-    useEffect (() => {
+    const [item , setItem] = useState<Item> ()
+
+    useMemo(() => {
         if (id) {
             const ItemsRes = async () => {
                 try {
-                    const res = await axios.get (`https://taxivoshod.ru/testapi/?w=item&id=${ id }`)
+                    const res:axiosRes = await axios.get (`https://taxivoshod.ru/testapi/?w=item&id=${ id }`)
                     setItem (res.data)
+                    console.log (res)
                 } catch (e) {
-                    console.error (e)
+                    console.log (e)
                 }
             }
             ItemsRes ()
         }
     } , [id])
-    if (!item) return null
-    const { text , name } = item
+
 
     return (
+        item &&
         <Link href={ `/` } className={ styles.content }>
 
             <div className={ styles.contentList }>
@@ -41,8 +58,8 @@ const ItemPage = () => {
             <button disabled={ true } className={ styles.PopUp }>
 
                 <div>
-                    <div>{ text }</div>
-                    <div>{ name }</div>
+                    <div>{ item.text }</div>
+                    <div>{ item.name }</div>
                 </div>
                 <Link href={ `/` } className={ styles.btn }>На главную</Link>
             </button>

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
-import { PopUpMenu } from "@/widgets/PopUpMenu/PopUpMenu";
-import styles from "@/widgets/PopUpMenu/PopUpMenu.module.scss";
+import { PopUpMenu } from "@/pages/PopUpMenu";
+import styles from "@/app/styles/PopUpMenu.module.scss";
 import Link from "next/link";
 import React from "react";
 
