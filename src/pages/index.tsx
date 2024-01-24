@@ -1,4 +1,4 @@
-import { MainPage } from "@/widgets/FirstPage/mainPage";
+import { MainPage } from "@/widgets/MainPage/mainPage";
 
 
 const HomePage = () => {

@@ -5,6 +5,13 @@
   margin-top: 50vh;
   justify-content: center;
 
+  @media screen and (max-width: 980px) {
+    margin-top: 30vh;
+  }
+  @media screen and (max-width: 480px) {
+    margin-top: 20vh;
+  }
+
 }
 
 .navBar {
