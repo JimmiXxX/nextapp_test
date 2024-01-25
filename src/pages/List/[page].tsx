@@ -8,17 +8,14 @@ const ListPage = () => {
     const router = useRouter ()
     const { page } = router.query
 
-    return (
+    return(
         <div>
             <div className={ styles.contentList }>
                 <div>Список элементов:</div>
                 <div className={ styles.nav }>
-                    <div>Это страница номер: { page } </div>
-                    <div>
-                        <PopUpMenu page={ page }/>
-                    </div>
-
-                    <Link href='/' className={ styles.backBtn }>На главную</Link>
+                    <div>Это страница : { page } </div>
+                    <PopUpMenu page={ page }/>
+                    <Link href={`/`} className={ styles.backBtn }>На главную страницу</Link>
                 </div>
             </div>
 

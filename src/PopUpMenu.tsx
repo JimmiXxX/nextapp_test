@@ -1,34 +1,48 @@
 import styles from "./app/styles/PopUpMenu.module.scss"
 import React , { useMemo , useState } from "react";
 import axios from "axios";
-import Link from "next/link";
+import { useRouter } from "next/router";
+import { Button } from "@/Button";
+
 
 export const PopUpMenu = ( { page } ) => {
 
-    const [items , setItems] = useState ([])
+    const [item , setItem] = useState ([])
 
-    useMemo(() => {
-        const PageRes = async () => {
-            try {
-                const res = await axios.get (`https://taxivoshod.ru/testapi/?w=list&page=${ page }`)
-                if(res.data.page <= res.data.pages){
-                    setItems (res.data.items)
+    useMemo (() => {
+
+        if (page == 1) {
+            const pageResOne = async () => {
+                try {
+                    const res = await axios.get (`https://taxivoshod.ru/testapi/?w=list&page=1`)
+                    setItem (res.data.items)
+                } catch (e) {
+                    console.log (e)
                 }
-            } catch (e) {
-                console.log (e)
             }
+
+            pageResOne ()
+        } else {
+            const pageResOne = async () => {
+                try {
+                    const res = await axios.get (`https://taxivoshod.ru/testapi/?w=list&page=2`)
+                    setItem (res.data.items)
+                } catch (e) {
+                    console.log (e)
+                }
+            }
+
+            pageResOne ()
         }
-        PageRes ()
     } , [page])
 
 
     return (
-        items &&
         <div>
             <ul className={ styles.ListMap }>
-                { items.map (( { id , name } ) => (
+                { item.map (( { id , name } ) => (
                     <li key={ id }>
-                        <Link href={ `/item/${ id }` } className={ styles.LiComponent }>{ name }</Link>
+                        <Button id={id} page={page}>{name}</Button>
                     </li>
                 )) }
             </ul>
