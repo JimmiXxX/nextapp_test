@@ -1,16 +1,28 @@
-import styles from "@/app/styles/MainPage.module.scss";
-import Link from "next/link";
+// import styles from "./index.module.css"
+import axios from "axios";
+import { useEffect , useMemo , useState } from "react";
+import { useRouter } from "next/router";
 
 
-const HomePage = () => {
+interface PageInterface {
+    page: number | any,
+    pages: number | any,
+    items: []
+}
+
+const MainPage = () => {
+
+    const router = useRouter ()
+
+
+    useEffect(()=>{
+        router.push('/page/1')
+    })
     return (
-        <div className={ styles.contentBlock }>
-            <div className={ styles.navBar }>
-                <Link href='/List/1' className={ styles.link }>Первая страница</Link>
-                <Link href='/List/2' className={ styles.link }>Вторая страница</Link>
-            </div>
-        </div>
+        <>
+
+        </>
     )
 }
 
-export default HomePage
+export default MainPage
