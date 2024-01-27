@@ -1,6 +1,6 @@
 import { useEffect , useState } from "react";
 import axios from "axios";
-import styles from "@/app/styles/Button.module.scss";
+import styles from "@/app/styles/ModalWinOpen.module.scss";
 import { useRouter } from "next/router";
 
 
@@ -10,17 +10,16 @@ interface ItemInterface {
 }
 
 
-export const ButtonOpenMenu = ( {
-                                    idx ,
-                                    children
-                                } ) => {
+export const ModalWinOpen = ( {
+                                  idx ,
+                                  children
+                              } ) => {
 
 
     const router = useRouter ()
     const { page } = router.query
 
-    const [hidden , setHidden] = useState (false)
-    // const [openMenu , setOpenMenu] = useState (true)
+    const [hidden , setHidden] = useState<boolean> (false)
     const [item , setItem] = useState<ItemInterface> ()
     useEffect (() => {
 
@@ -30,11 +29,9 @@ export const ButtonOpenMenu = ( {
                 setItem (data)
 
             } catch (e) {
-                console.log (e)
-
+                return null
             }
         }
-
         ItemsRes ()
 
     } , [])
@@ -53,21 +50,17 @@ export const ButtonOpenMenu = ( {
 
     return (
         <>
-            <button onClick={ openMenu } className={styles.btnLi}>{ children }</button>
+            <button onClick={ openMenu } className={ styles.btnLi }>{ children }</button>
 
             <div className={ `${ styles.HiddenMenu } ${ !hidden ? '' : styles.show }` }>
-
-
-                <div className={styles.hiddenText}>
+                <div className={ styles.hiddenText }>
                     <div>
                         <div>{ item?.text }</div>
                         <div>{ item?.name }</div>
                     </div>
-                    <button onClick={ onClose }>Закрыть</button>
+                    <button onClick={ onClose } className={ styles.closedMenu }>Закрыть</button>
                 </div>
             </div>
-
         </>
-
     )
 }

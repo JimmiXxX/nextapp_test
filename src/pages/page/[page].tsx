@@ -1,9 +1,8 @@
 import { useMemo , useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { ButtonOpenMenu } from "@/pages/ButtonOpenMenu";
-import styles from '@/app/styles/PopUpMenu.module.scss'
-
+import { ModalWinOpen } from "@/ModalWinOpen";
+import styles from '@/app/styles/Pages.module.scss'
 
 interface PageInterface {
     page: number,
@@ -12,12 +11,12 @@ interface PageInterface {
 }
 
 interface ItemInterface {
-    text: string,
+    id: number,
     name: string
 }
 
 
-const Pages = ( props ) => {
+const Pages = () => {
 
     const router = useRouter ()
 
@@ -56,23 +55,23 @@ const Pages = ( props ) => {
 
 
     return (
-        <div className={styles.Content}>
+        <div className={ styles.Content }>
             <div className={ styles.contentList }>
 
-                <div className={styles.totalPage}>
+                <div className={ styles.totalPage }>
                     <div>Всего страниц: { pages }</div>
                     <div>Данная страница: { page }</div>
                 </div>
 
                 <ul className={ styles.itemsMap }>
-                    { items.map (( { id , name } ) => (
+                    { items.map (( { id , name }:ItemInterface ) => (
                         <li key={ id }>
-                            <ButtonOpenMenu idx={ id }>{ name }</ButtonOpenMenu>
+                            <ModalWinOpen idx={ id }>{ name }</ModalWinOpen>
                         </li>
                     )) }
                 </ul>
 
-                <button onClick={ NextPage } className={styles.nextPage}>Следующая страница</button>
+                <button onClick={ NextPage } className={ styles.nextPage }>Следующая страница</button>
             </div>
         </div>
     )

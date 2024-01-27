@@ -1,6 +1,6 @@
-import { useEffect , useMemo , useState } from "react";
+import { useMemo , useState } from "react";
 import axios from "axios";
-import styles from '@/app/styles/Button.module.scss'
+import styles from '@/app/styles/itemMenu.module.scss'
 
 import { useRouter } from "next/router";
 
@@ -10,26 +10,30 @@ interface PageInterface {
     items: []
 }
 
+interface MapInterface {
+    name: string,
+    id: number
+}
+
 interface ItemInterface {
-    text: string,
+    text: string
     name: string
 }
 
 
-const ModalPage = (props) => {
+const ModalPage = ( props ) => {
 
     const [items , setItems] = useState ([])
     const [pages , TotalPages] = useState<number> (2)
     const [page , SelectPage] = useState<number> (1)
 
 
-    const [hidden , setHidden] = useState (true)
+    const [hidden , setHidden] = useState<boolean> (true)
     const [item , setItem] = useState<ItemInterface> ()
 
 
-    const router = useRouter()
-
-    const {id} = router.query
+    const router = useRouter ()
+    const { id } = router.query
 
     useMemo (() => {
 
@@ -49,17 +53,15 @@ const ModalPage = (props) => {
     } , [page])
 
 
-
     useMemo (() => {
 
         const ItemsRes = async () => {
             try {
-
-                const { data } = await axios.get<ItemInterface> (`https://taxivoshod.ru/testapi/?w=item&id=${id}`)
+                const { data } = await axios.get<ItemInterface> (`https://taxivoshod.ru/testapi/?w=item&id=${ id }`)
                 setItem (data)
 
             } catch (e) {
-                console.log (e)
+                return null
             }
         }
 
@@ -67,54 +69,43 @@ const ModalPage = (props) => {
 
     } , [id])
 
-
-    const openMenu = () => {
-
-    }
     const onClose = () => {
-        router.push('/page/1')
+        router.push ('/page/1')
     }
-
 
 
     return (
         <>
+            <div className={ styles.ContentItem }>
+                <div className={ styles.contentListItem }>
 
-
-
-            <div className={ `${ styles.HiddenMenu } ${ !hidden ? '' : styles.shows }`}>
-                <div className={styles.Content}>
-                    <div className={ styles.contentList }>
-
-                        <div className={styles.totalPage}>
-                            <div>Всего страниц: { pages }</div>
-                            <div>Данная страница: { page }</div>
-                        </div>
+                    <div className={ styles.totalPageItem }>
+                        <div>Всего страниц: { pages }</div>
+                        <div>Данная страница: { page }</div>
                     </div>
 
-            <ul>
-                { items.map (( { id , name } ) => (
-                    <li key={ id }>
-                        <button onClick={ openMenu }>{ name }</button>
-                    </li>
-                )) }
-            </ul>
+                    <ul className={ styles.itemsMapItem }>
+                        { items.map (( { id , name }: MapInterface ) => (
+                            <li key={ id }>
+                                <button className={ styles.btnLiItem }>{ name }</button>
+                            </li>
+                        )) }
+                    </ul>
 
-            <button>Следующая страница</button>
-
+                    <button className={ styles.nextPageItem }>Следующая страница</button>
+                </div>
             </div>
-            </div>
 
 
-            <div className={ `${ styles.HiddenMenu } ${ !hidden ? '' : styles.show }` }>
+            <div className={ `${ !hidden ? '' : styles.showItem }` }>
 
 
-                <div className={styles.hiddenText}>
+                <div className={ styles.hiddenTextItem }>
                     <div>
                         <div>{ item?.text }</div>
                         <div>{ item?.name }</div>
                     </div>
-                    <button onClick={ onClose }>Закрыть</button>
+                    <button onClick={ onClose } className={ styles.closedMenuItem }>Закрыть</button>
                 </div>
             </div>
         </>
